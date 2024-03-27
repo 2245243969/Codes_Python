@@ -1,0 +1,10 @@
+one_person={
+    'first_name':'陈',
+    'last_name':'贤业',
+    'age':'114514',
+    'city':'佛山',
+}
+print(one_person['first_name'])
+print(one_person['last_name'])
+print(one_person['age'])
+print(one_person['city'])
