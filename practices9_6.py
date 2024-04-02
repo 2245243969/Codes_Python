@@ -17,7 +17,7 @@ class IceCreamStand(Restaurant):
         self.flavors=['草莓味','芒果味','西瓜味','香草味',]
 
     def print_flavors(self):
-        print(self.flavors)
+        print(*self.flavors)
 
 the_icecreamstand=IceCreamStand('哈根达斯','雪糕')
 the_icecreamstand.describe_restaurant()
