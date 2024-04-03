@@ -3,6 +3,7 @@ import pygame
 
 from settings import Settings
 from ship import Ship
+from bullet import Bullet
 
 
 class AlienInvasion:
@@ -18,12 +19,15 @@ class AlienInvasion:
         pygame.display.set_caption("Alien Invasion")
 
         self.ship = Ship(self)  # 载入飞船
+        self.bullets = pygame.sprite.Group()  # 存储子弹的编组
+
 
     def run_game(self):
         """开始游戏的主循环"""
         while True:
             self._check_events()
             self.ship.update()
+            self.bullets.update()
             self._update_screen()
             self.clock.tick(120)  # 将游戏的帧率设为120帧
 
@@ -37,22 +41,32 @@ class AlienInvasion:
             elif event.type == pygame.KEYUP:  # 检查按键是否释放
                 self._check_keyup_events(event)
 
-    def _check_keydown_events(self,event):
+    def _check_keydown_events(self, event):
         """响应按下"""
         if event.key == pygame.K_RIGHT:  # 检查按下的键（event.key)是不是右方向键
             self.ship.moving_right = True
         elif event.key == pygame.K_LEFT:  # 检查按下的键（event.key)是不是左方向键
             self.ship.moving_left = True
+        elif event.key == pygame.K_SPACE:  # 按空格发射子弹
+            self._fire_bullet()
 
-    def _check_keyup_events(self,event):
+    def _check_keyup_events(self, event):
         """响应释放"""
         if event.key == pygame.K_RIGHT:
             self.ship.moving_right = False  # 释放是就将ship.moving_right设置为False,让ship.py中控制右移动的循环停止
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = False
+
+    def _fire_bullet(self):
+        """创建一颗子弹，并将其加入编组bullets"""
+        new_bullet = Bullet(self)
+        self.bullets.add(new_bullet)
+
     def _update_screen(self):
         """更新屏幕上的图像，并切换到新屏幕"""
         self.screen.fill(self.settings.bg_color)  # 调用fill()方法填充屏幕背景色
+        for bullet in self.bullets.sprites():
+            bullet.draw_bullet()
         self.ship.blitme()
 
         pygame.display.flip()  # 让最近绘制的屏幕可见
