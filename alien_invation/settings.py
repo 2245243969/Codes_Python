@@ -16,3 +16,4 @@ class Settings:
         self.bullet_width = 3
         self.bullet_height = 15
         self.bullet_color = (60, 60, 60)
+        self.bullets_allowed = 5  # 允许屏幕中出现子弹的最多个数
