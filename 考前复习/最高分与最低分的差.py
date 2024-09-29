@@ -1,0 +1,5 @@
+res_str=input("请输入成绩，以空格分开")
+res_list=res_str.split(' ')
+max_res=max(int(i) for i in res_list)
+min_res=min(int(i) for i in res_list)
+print(max_res-min_res)
